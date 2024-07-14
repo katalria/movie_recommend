@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  bnviit:
+    container_name : llm_server
+    volumes:
+      - .:/app/
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    command: >
+      /bin/sh -c "python main.py"
