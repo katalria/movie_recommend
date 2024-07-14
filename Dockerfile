@@ -10,6 +10,6 @@ COPY requirements.txt ./
 
 RUN pip install --no-cache-dir --upgrade -r ./requirements.txt
 
-WORKDIR /new_vision/bnviit-vision/FastAPI
+WORKDIR /app/
 
 CMD ["/bin/bash"]

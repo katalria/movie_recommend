@@ -7,6 +7,8 @@ import uvicorn
 # langchain 관련 패키지
 from langchain_openai import ChatOpenAI
 
+# env 환경변수
+from config import OPENAI_API_KEY
 
 
 
@@ -37,8 +39,9 @@ class My_App():
             response = {}
                     
             llm = ChatOpenAI(
+                api_key = OPENAI_API_KEY,
                 temperature=0.1,  
-                model_name="gpt-3.5-turbo", 
+                model_name="gpt-3.5-turbo" 
             )
 
 
@@ -46,4 +49,7 @@ class My_App():
             
             
             return response
-        
+
+if __name__=='__main__':
+    my_app = My_App()
+    uvicorn.run(my_app.app)
