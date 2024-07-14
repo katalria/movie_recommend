@@ -1,15 +1,17 @@
 # fast 서버 관련 패키지
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import uvicorn
 
 # langchain 관련 패키지
+from langchain_openai import ChatOpenAI
 
 
 
 
-class my_app():
+
+class My_App():
     """
     fastapi 및 langchain 클래스 생성
     """
@@ -28,11 +30,19 @@ class my_app():
             return JSONResponse(content={"status": "ok"}, status_code=200)
         
         @self.app.post("/chat")
-        def chat():
+        def chat(request, app: My_App = Depends(self.get_instance)):
             """
             사용자의 질의를 받아서 llm으로 답변을 하는 함수
             """
             response = {}
+                    
+            llm = ChatOpenAI(
+                temperature=0.1,  
+                model_name="gpt-3.5-turbo", 
+            )
+
+
+            response = llm.invoke(request)
             
             
             return response
